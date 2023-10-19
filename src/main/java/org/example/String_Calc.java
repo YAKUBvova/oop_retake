@@ -11,9 +11,9 @@ public class String_Calc {
         delimiters.add(",");
         delimiters.add("\n");
     }
-    public void edit(String del){
+    public void edit(List<String> del){
 
-        delimiters.add(del);
+        delimiters.addAll(del);
     }
     public void list_clean(){
         while (delimiters.size()>2){
@@ -23,16 +23,16 @@ public class String_Calc {
     public String custom_del(String str){
         int start =2 ;
         int end ;
-        String res="";
+        List<String> res = new ArrayList<>();
         for (int i =2 ; i < str.length();i++){
             if (str.charAt(i)=='['&& str.charAt(i+1)!='\n')start=i+1;
             if (str.charAt(i)==']'&& str.charAt(i-1)!='/'){
                 end = i;
-                res=str.substring(start,end);
+                res.add(str.substring(start,end));
                 start = i+1;
             }
             if (str.charAt(i)=='\n'){
-                if (res.isEmpty()){throw new UnsupportedOperationException("Error! Enter delimetr!");}
+                if (res.contains("")){throw new UnsupportedOperationException("Error! Enter delimetr!");}
                 edit(res);
                 return str.substring(i+1);
             }
