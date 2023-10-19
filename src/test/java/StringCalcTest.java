@@ -18,11 +18,12 @@ public class StringCalcTest {
         assertEquals(11,calc.add("//[f]\n1f2,3\n5"));
         assertEquals(1111,calc.add("1000,1001,100\n10\n1"));
         assertEquals(1111,calc.add("1000,1001,100\n10\n1,1002"));
+        assertEquals(1031,calc.add("//[ffg]\n1\n22ffg3,5,1000,1001"));
         assertThrows(NumberFormatException.class,()->{calc.add(",1,2");});
         assertThrows(NumberFormatException.class,()->{calc.add("1,\n2");});
-        assertThrows(NumberFormatException.class,()->{calc.add("//f]\n1\n22f3,5,6,5");});
-        assertThrows(NumberFormatException.class,()->{calc.add("//[f]1\n22f3,5,6,5");});
         assertThrows(UnsupportedOperationException.class,()->{calc.add("//[f]\n1\n22f3,5,-6,5");});
+        assertThrows(NumberFormatException.class,()->{calc.add("//[f]\n");});
+        assertThrows(UnsupportedOperationException.class,()->{calc.add("//[]\n1\n22f3,5,-6,5");});
     }
 
     }

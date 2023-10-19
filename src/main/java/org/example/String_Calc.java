@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class String_Calc {
     public List<String> delimiters = new ArrayList<>();
     {
@@ -14,7 +15,30 @@ public class String_Calc {
 
         delimiters.add(del);
     }
-
+    public void list_clean(){
+        while (delimiters.size()>2){
+            delimiters.remove(2);
+        }
+    }
+    public String custom_del(String str){
+        int start =2 ;
+        int end ;
+        String res="";
+        for (int i =2 ; i < str.length();i++){
+            if (str.charAt(i)=='['&& str.charAt(i+1)!='\n')start=i+1;
+            if (str.charAt(i)==']'&& str.charAt(i-1)!='/'){
+                end = i;
+                res=str.substring(start,end);
+                start = i+1;
+            }
+            if (str.charAt(i)=='\n'){
+                if (res.isEmpty()){throw new UnsupportedOperationException("Error! Enter delimetr!");}
+                edit(res);
+                return str.substring(i+1);
+            }
+        }
+        return "";
+    }
     public int adding(String numbers){
         int result = 0 ;
         int start = 0 ;
@@ -26,22 +50,24 @@ public class String_Calc {
                 try {
                     if (numbers.startsWith(delimiter, i)) {
                         end_ = i;
-                        i += 1;
+                        i += delimiter.length();
                         if (numbers.charAt(start) == '-') {
                             negative_dig.add(numbers.substring(start, end_));
                         }
                         try {
                             int number = Integer.parseInt(numbers.substring(start, end_));
                             if (number > 1000) {
-                                start = end_ + 1;
+                                start = end_ + delimiter.length();
                                 break;
                             }
                             result += number;
                         } catch (NumberFormatException e) {
+                            list_clean();
                             throw new NumberFormatException("Error! Invalid format");
                         }
-                        start = end_ + 1;
+                        start = end_ + delimiter.length();
                         if (start == numbers.length()) {
+                            list_clean();
                             throw new NumberFormatException("Error! Invalid format");
                         }
 
@@ -54,6 +80,7 @@ public class String_Calc {
                 if (!(Integer.parseInt(numbers.substring(start))>1000)){
                     result += Integer.parseInt(numbers.substring(start));
                 }
+                list_clean();
                 if (numbers.charAt(start)=='-'){
                     negative_dig.add(numbers.substring(start));
                 }
@@ -64,17 +91,18 @@ public class String_Calc {
             }
             i++;
         }
+        list_clean();
+        if (numbers.charAt(0)=='-'){
+            System.out.println("Error! Nonsupported negative digit: "+numbers);
+            return -1;
+        }
         return Integer.parseInt(numbers) ;
     }
 
     public int add (String numbers){
         if (numbers.length() == 0) return 0 ;
         if (numbers.startsWith( "//")){
-            if (numbers.indexOf("[")!=2 || numbers.indexOf("]")!=4 || numbers.indexOf("\n")!=5 ){
-                throw new NumberFormatException("Error! Invalid format");
-            }
-            edit(numbers.substring(3,4));
-            numbers = numbers.substring(6);
+            numbers=custom_del(numbers);
             if (numbers.equals("")) {
                 throw new NumberFormatException("Error! Invalid format");
             }
