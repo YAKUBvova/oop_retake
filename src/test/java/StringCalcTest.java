@@ -20,6 +20,7 @@ public class StringCalcTest {
         assertEquals(1111,calc.add("1000,1001,100\n10\n1,1002"));
         assertEquals(1031,calc.add("//[ffg]\n1\n22ffg3,5,1000,1001"));
         assertEquals(1132,calc.add("//[ffg][ff]\n1\n22ffg3,5,1000ff101"));
+        assertEquals(1132,calc.add("//[fff][ff]\n1\n22ff3,5,1000fff101"));
         assertThrows(NumberFormatException.class,()->{calc.add(",1,2");});
         assertThrows(NumberFormatException.class,()->{calc.add("1,\n2");});
         assertThrows(UnsupportedOperationException.class,()->{calc.add("//[f]\n1\n22f3,5,-6,5");});

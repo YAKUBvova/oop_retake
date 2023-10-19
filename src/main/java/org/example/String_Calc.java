@@ -33,6 +33,7 @@ public class String_Calc {
             }
             if (str.charAt(i)=='\n'){
                 if (res.contains("")){throw new UnsupportedOperationException("Error! Enter delimetr!");}
+//                res.sort(Collections.reverseOrder());
                 edit(res);
                 return str.substring(i+1);
             }
