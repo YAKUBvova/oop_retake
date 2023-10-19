@@ -20,6 +20,7 @@ public class StringCalcTest {
         assertThrows(NumberFormatException.class,()->{calc.add("1,\n2");});
         assertThrows(NumberFormatException.class,()->{calc.add("//f]\n1\n22f3,5,6,5");});
         assertThrows(NumberFormatException.class,()->{calc.add("//[f]1\n22f3,5,6,5");});
+        assertThrows(UnsupportedOperationException.class,()->{calc.add("//[f]\n1\n22f3,5,-6,5");});
     }
 
     }

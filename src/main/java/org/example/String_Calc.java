@@ -20,12 +20,16 @@ public class String_Calc {
         int start = 0 ;
         int end_ ;
         int i = 0;
+        List<String> negative_dig = new ArrayList<>();
         while (i<numbers.length()){
             for (String delimiter : delimiters) {
                 try {
                     if (numbers.startsWith(delimiter, i)) {
                         end_ = i;
                         i += 1;
+                        if (numbers.charAt(start) == '-') {
+                            negative_dig.add(numbers.substring(start, end_));
+                        }
                         try {
                             int number = Integer.parseInt(numbers.substring(start, end_));
                             result += number;
@@ -44,6 +48,12 @@ public class String_Calc {
             }
             if (i == numbers.length()-1) {
                 result += Integer.parseInt(numbers.substring(start));
+                if (numbers.charAt(start)=='-'){
+                    negative_dig.add(numbers.substring(start));
+                }
+                if (negative_dig.size()>0){
+                    throw new UnsupportedOperationException("Error! Negative numbers: "+negative_dig);
+                }
                 return result ;
             }
             i++;
