@@ -32,6 +32,10 @@ public class String_Calc {
                         }
                         try {
                             int number = Integer.parseInt(numbers.substring(start, end_));
+                            if (number > 1000) {
+                                start = end_ + 1;
+                                break;
+                            }
                             result += number;
                         } catch (NumberFormatException e) {
                             throw new NumberFormatException("Error! Invalid format");
@@ -47,7 +51,9 @@ public class String_Calc {
                 }
             }
             if (i == numbers.length()-1) {
-                result += Integer.parseInt(numbers.substring(start));
+                if (!(Integer.parseInt(numbers.substring(start))>1000)){
+                    result += Integer.parseInt(numbers.substring(start));
+                }
                 if (numbers.charAt(start)=='-'){
                     negative_dig.add(numbers.substring(start));
                 }
